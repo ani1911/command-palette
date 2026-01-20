@@ -45,11 +45,10 @@ export function fuzzyScore(text: string, query: string): number {
   return score;
 }
 
-export function rankCommands(
-  commands: Command[],
-  query: string
-): Command[] {
-  return commands
+export function rankCommands(commands: Command[], query: string): Command[] {
+  const start = performance.now();
+
+  const result = commands
     .map((command) => ({
       command,
       score: fuzzyScore(command.label, query),
@@ -57,4 +56,13 @@ export function rankCommands(
     .filter((item) => item.score > -Infinity)
     .sort((a, b) => b.score - a.score)
     .map((item) => item.command);
+
+  const end = performance.now();
+  const duration = end - start;
+
+  if (duration > 50) {
+    console.warn(`Command ranking exceeded 50ms: ${duration.toFixed(2)}ms`);
+  }
+
+  return result;
 }
