@@ -6,7 +6,6 @@ export type Command = {
   id: string;
   label: string;
   description?: string;
-  keyword?: string[];
 
   run: (context: CommmandContext, input?: string) => void | Promise<void>;
 };
