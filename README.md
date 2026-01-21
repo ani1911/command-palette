@@ -1,73 +1,147 @@
-# React + TypeScript + Vite
+# Command Palette
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A keyboard-first **Command Palette** inspired by tools like VS Code and Spotlight, built to provide fast command discovery and execution within an application.
 
-Currently, two official plugins are available:
+The project focuses on clean architecture, predictable behavior, accessibility, and performance, making it suitable for real-world frontend systems.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+## ✨ Overview
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+The Command Palette allows users to open a global search interface using a keyboard shortcut, type commands, navigate results using the keyboard, and execute actions instantly.
 
-## Expanding the ESLint configuration
+It is designed as a reusable system rather than a hardcoded UI component.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+---
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## 🚀 Key Features
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+- Global keyboard shortcut (`Ctrl + K` / `Cmd + K`)
+- Real-time fuzzy search with ranked results
+- Keyboard-only navigation (↑ ↓ Enter Esc)
+- Plugin-based command architecture
+- Async command execution support
+- Accessible, screen-reader-friendly UI
+- Measured and guarded performance
+- Interactive component documentation via Storybook
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+---
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 🧠 Design Philosophy
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Keyboard-First UX
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+The entire interaction flow is designed to work without a mouse:
+
+- Focus is managed programmatically
+- Navigation is state-driven
+- There are no keyboard dead ends
+
+### Separation of Concerns
+
+- Commands are defined independently of the UI
+- The UI only renders and executes commands
+- Business logic is isolated and reusable
+
+This makes the system scalable and easy to extend.
+
+---
+
+## 🧱 Architecture
+
+### Command System
+
+Commands are defined as structured objects and registered through a plugin mechanism.
+
+Each command:
+
+- Has a unique identifier
+- Exposes a human-readable label
+- Defines its own execution logic
+- Can run synchronously or asynchronously
+
+This approach allows new commands to be added without modifying the UI layer.
+
+---
+
+### Fuzzy Search & Ranking
+
+A custom fuzzy matching algorithm is used to rank commands based on user input.
+
+Characteristics:
+
+- Characters must match in order
+- Consecutive matches receive higher scores
+- Non-matching commands are excluded early
+- Results are deterministic and predictable
+
+This ensures fast and intuitive search behavior.
+
+---
+
+## ♿ Accessibility
+
+Accessibility is built into the core interaction model.
+
+- Uses semantic ARIA roles for combobox and listbox patterns
+- Active items are announced to screen readers
+- Fully operable using keyboard alone
+- Verified through Storybook accessibility tooling
+
+---
+
+## ⚡ Performance
+
+Search and ranking are measured per keystroke using high-resolution timing.
+
+- Results are computed within a guarded threshold
+- Performance regressions are detectable during development
+- Large command lists are tested via Storybook scenarios
+
+---
+
+## 📘 Storybook
+
+All components are documented and tested in isolation using Storybook.
+
+Storybook includes:
+
+- Default usage
+- Empty state
+- Keyboard-only interaction
+- Large command list (performance scenario)
+
+A public Storybook build is available via Chromatic for easy review.
+
+---
+
+## 🛠 Tech Stack
+
+- React
+- TypeScript
+- Vite
+- Tailwind CSS
+- Storybook
+- Chromatic
+
+---
+
+## ▶️ Running the Project
+
+## ▶️ Running the Project
+
+Install dependencies:
+
+````bash
+npm install
+
+
+
+Start development server:
+```bash
+npm run dev
+
+Run Storybook
+```bash
+npm install
+````
