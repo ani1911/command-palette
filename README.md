@@ -126,22 +126,4 @@ A public Storybook build is available via Chromatic for easy review.
 
 ---
 
-## ▶️ Running the Project
 
-## ▶️ Running the Project
-
-Install dependencies:
-
-````bash
-npm install
-
-
-
-Start development server:
-```bash
-npm run dev
-
-Run Storybook
-```bash
-npm install
-````
